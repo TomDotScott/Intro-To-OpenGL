@@ -64,7 +64,11 @@ bool InitialiseGeometry()
 	{
 		-1.0f, -1.0f, 0.0f,
 		1.0f, -1.0f, 0.0f,
-		0.0f,  1.0f, 0.0f
+		-1.0f,  1.0f, 0.0f,
+
+		1.0f, 1.0f, 0.0f,
+		-1.0f, 1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f
 	};
 
 	/*
@@ -176,5 +180,5 @@ void Render()
 	glBindVertexArray(gVAO);
 
 	// Draw triangle primitives from the bound buffer data, starting from vertex 0 with 3 vertices in total
-	glDrawArrays(GL_TRIANGLES, 0, 3); 
+	glDrawArrays(GL_TRIANGLES, 0, 6); 
 }
