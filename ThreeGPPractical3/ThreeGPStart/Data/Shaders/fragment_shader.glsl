@@ -2,7 +2,9 @@
 
 out vec3 color;
 
+in vec3 varying_colour;
+
 void main()
 {
-  color = vec3(1,0,0);
+  color = varying_colour;
 }

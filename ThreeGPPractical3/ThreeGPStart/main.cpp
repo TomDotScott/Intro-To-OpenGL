@@ -89,8 +89,27 @@ bool InitialiseGeometry()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
 	// Clear binding - not absolutely required but a good idea!
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);	
 
+	// Create some colours
+	std::vector<GLfloat> colours =
+	{
+		1.0f, 1.0f, 0.0f,
+		1.0f, 0.5f, 0.0f,
+		1.0f,  1.0f, 1.0f,
+
+		1.0f, 1.0f, 0.5f,
+		1.0f, 1.0f, 0.0f,
+		1.0f, 0.0f, 0.5f
+	};
+
+	// Create a Colours Vertex Buffer Object
+	GLuint coloursVBO;
+	glGenBuffers(1, &coloursVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, coloursVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * colours.size(), colours.data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	
 	// Load and create vertex and fragment shaders
 	GLuint vertex_shader = Helpers::LoadAndCompileShader(GL_VERTEX_SHADER,"Data/Shaders/vertex_shader.glsl");
 	GLuint fragment_shader = Helpers::LoadAndCompileShader(GL_FRAGMENT_SHADER,"Data/Shaders/fragment_shader.glsl");
@@ -151,9 +170,25 @@ bool InitialiseGeometry()
 		(void*)0            // array buffer offset (advanced)
 	);
 
+
+	// SET UP THE COLOURS BUFFER
+	glBindBuffer(GL_ARRAY_BUFFER, coloursVBO);
+
+	glEnableVertexAttribArray(1);
+
+	// Describe the make up of the vertex stream
+	glVertexAttribPointer(
+		1,                  
+		3,                  
+		GL_FLOAT,           
+		GL_FALSE,           
+		0,                  
+		(void*)0            
+	);
+	
 	// Clear VAO binding
 	glBindVertexArray(0);
-
+	
 	return true;
 } 
 
